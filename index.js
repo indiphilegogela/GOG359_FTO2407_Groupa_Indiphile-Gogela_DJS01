@@ -13,11 +13,31 @@ const d = 0; // distance (km)
 const fuel = 5000; // remaining fuel (kg)
 const fbr = 0.5; // fuel burn rate (kg/s)
 
+/** 
+// calculate new velocity
+
+ //Calculating new velocity based on initial velocity, acceleration, and time.
+ @param {number} vel - //Initial velocity (km/h)
+ @param {number} acc - //Acceleration (m/s²)
+ @param {number} time - //Time (seconds)
+ @returns {number} //New velocity (km/h)
+ */
+const calcNewVel = (vel, acc, time) => {
+  if (typeof vel !== 'number' || typeof acc !== 'number' || typeof time !== 'number') {
+    throw new Error("All inputs must be numbers.");
+  }
+
+  const acc_kmh2 = acc * (3600 / 1000); // Convert m/s² to km/h²
+  return vel + acc_kmh2 * time;
+};
+
+// Calculate new velocity
+const ve12 = calcNewVel(vel, acc, time);
 
 // Calculate New Distance (based on average velocity)
 const averageVelocity = (vel + vel2) / 2; // km/h
 const timeHours = time / 3600; // Convert seconds to hours
-const d2 = d + (averageVelocity * timeHours); // Distance traveled (km)
+const d2 = d + (averageVelocity * timeHours); 
 
 // Calculate Remaining Fuel
 const fuelConsumed = fbr * time; // fuel used (kg)
@@ -28,32 +48,9 @@ if (remainingFuel < 0) {
 }
 
 
-//funtion to calculate new velocity
-* @param {number} vel - initial velocity (km/h)
-* @param {number} acc - acceleration (m/s²)
-* @param {number} time - time (seconds)
-* @returns {number} - new velocity in km/h
-*/
-const calcNewVel = (vel, acc, time) => {
- if (typeof vel !== 'number' || typeof acc !== 'number' || typeof time !== 'number') {
-   throw new Error("All inputs must be numbers.");
- }
- 
- const acc_kmh2 = acc * (3600 / 1000); 
-
-  return vel + acc_kmh2 * time;
-};
-
-const vel2 = calcNewVel(vel, acc, time);
-
-// Pick up an error with how the function below is called and make it robust to such errors
-calcNewVel = (vel, acc, time) => { 
-  return vel + (acc*time)
-}
-
 console.log(`Corrected New Velocity: ${vel2} km/h`);
 console.log(`Corrected New Distance: ${d2} km`);
-console.log(`Corrected Remaining Fuel: ${rf} kg`);
+console.log(`Corrected Remaining Fuel: ${remainingFuel} kg`);
 
 
 
