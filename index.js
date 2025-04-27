@@ -14,11 +14,29 @@ const fuel = 5000; // remaining fuel (kg)
 const fbr = 0.5; // fuel burn rate (kg/s)
 
 
-const d2 = d + (vel*time) //calcultes new distance
-const rf = fbr*time //calculates remaining fuel
+// Calculate New Distance (based on average velocity)
+const averageVelocity = (vel + vel2) / 2; // km/h
+const timeHours = time / 3600; // Convert seconds to hours
+const d2 = d + (averageVelocity * timeHours); // Distance traveled (km)
 
 
-//Function to Calculate New Velocity
+
+//funtion to calculate new velocity
+* @param {number} vel - initial velocity (km/h)
+* @param {number} acc - acceleration (m/s²)
+* @param {number} time - time (seconds)
+* @returns {number} - new velocity in km/h
+*/
+const calcNewVel = (vel, acc, time) => {
+ if (typeof vel !== 'number' || typeof acc !== 'number' || typeof time !== 'number') {
+   throw new Error("All inputs must be numbers.");
+ }
+ 
+ const acc_kmh2 = acc * (3600 / 1000); 
+
+  return vel + acc_kmh2 * time;
+};
+
 const vel2 = calcNewVel(vel, acc, time);
 
 // Pick up an error with how the function below is called and make it robust to such errors
