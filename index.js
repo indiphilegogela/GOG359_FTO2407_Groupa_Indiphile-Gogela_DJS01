@@ -19,6 +19,13 @@ const averageVelocity = (vel + vel2) / 2; // km/h
 const timeHours = time / 3600; // Convert seconds to hours
 const d2 = d + (averageVelocity * timeHours); // Distance traveled (km)
 
+// Calculate Remaining Fuel
+const fuelConsumed = fbr * time; // fuel used (kg)
+const remainingFuel = fuel - fuelConsumed;
+
+if (remainingFuel < 0) {
+  throw new Error("Fuel has run out! Remaining fuel is negative.");
+}
 
 
 //funtion to calculate new velocity
